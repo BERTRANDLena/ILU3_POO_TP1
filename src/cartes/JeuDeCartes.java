@@ -59,5 +59,50 @@ public class JeuDeCartes {
 	
 	public Carte[] donnerCartes() {
 		
+		int total = 0;
+		
+		for(Configuration config : typesDeCartes) {
+			total += config.getNbExemplaires();	
+		}
+		Carte[] carte = new Carte[total];
+		int index = 0;
+		
+		for(Configuration config : typesDeCartes) {
+			for(int i=0; i< config.getNbExemplaires();i++) {
+				carte[index] = config.getCarte();
+				index++;
+			}
+		}
+		return carte;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

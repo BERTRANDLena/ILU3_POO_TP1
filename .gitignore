@@ -1,0 +1,30 @@
+# Fichiers compilés
+*.class
+*.jar
+*.war
+*.ear
+
+# Dossiers de compilation
+/bin/
+/build/
+/out/
+
+# IDE (IntelliJ, Eclipse, NetBeans)
+.idea/
+*.iml
+*.ipr
+*.iws
+*.classpath
+*.project
+*.settings/
+
+# Logs et fichiers temporaires
+*.log
+*.tmp
+
+# Fichiers de configuration locaux
+*.env
+*.properties
+
+# Divers
+.DS_Store
