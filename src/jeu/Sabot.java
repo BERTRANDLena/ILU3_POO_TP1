@@ -4,19 +4,13 @@ import cartes.Carte;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-// Où gerer les execptions pour la 1.c
-
 public class Sabot implements Iterable<Carte> {
 
 	private int nbCartes;
 	private Carte[] cartes;
 
-	private int indiceIterateur = 0;
-	private boolean nextEffectue = false;
-
 	public Sabot(Carte[] cartes) {
 		this.cartes = cartes;
-		this.nbCartes = nbCartes;
 	}
 
 	public boolean estVide() {
@@ -44,6 +38,8 @@ public class Sabot implements Iterable<Carte> {
 
 	@Override
 	public Iterator<Carte> iterator() {
+		private int indiceIterateur = 0;
+		private boolean nextEffectue = false;
 		return new Iterator<Carte>() {
 
 			@Override
