@@ -11,6 +11,7 @@ public class Sabot implements Iterable<Carte> {
 
 	public Sabot(Carte[] cartes) {
 		this.cartes = cartes;
+		this.nbCartes = cartes.length;
 	}
 
 	public boolean estVide() {
@@ -38,23 +39,26 @@ public class Sabot implements Iterable<Carte> {
 
 	@Override
 	public Iterator<Carte> iterator() {
-		private int indiceIterateur = 0;
-		private boolean nextEffectue = false;
+
 		return new Iterator<Carte>() {
+
+			private int indiceIterateur = 0;
+			private boolean nextEffectue = false;
 
 			@Override
 			public boolean hasNext() {
-				// TODO Auto-generated method stub
-				return false;
+				return indiceIterateur < nbCartes;
 			}
 
 			@Override
 			public Carte next() {
-				// TODO Auto-generated method stub
-				return null;
+				if (!hasNext()) {
+					throw new NoSuchElementException();
+				}
+				nextEffectue = true;
+				return cartes[indiceIterateur++];
 			}
 			
-		
 			@Override
 			public void remove() {
 				if (!nextEffectue) {
@@ -65,10 +69,10 @@ public class Sabot implements Iterable<Carte> {
 					cartes[i] = cartes[i + 1];
 				}
 
-				cartes[nbCartes - 1] = null; // libère la dernière case
-				nbCartes--;                  // décrémente le nombre de cartes
-				indiceIterateur--;           // recule l’indice pour continuer l’itération
-				nextEffectue = false;        // empêche remove() avant le prochain next()
+				cartes[nbCartes - 1] = null;
+				nbCartes--;
+				indiceIterateur--;
+				nextEffectue = false;
 			}
 		};
 	}

@@ -52,7 +52,7 @@ public class JeuDeCartes {
 	public String affichageJeuDeCartes() {
 		StringBuilder chaine = new StringBuilder();
 		for (Configuration configuration : typesDeCartes) {
-			chaine.append(configuration.getNbExemplaires()));
+			chaine.append(configuration.getNbExemplaires());
 			chaine.append(" ");
 			chaine.append(configuration.getCarte());
 			chaine.append("\n");

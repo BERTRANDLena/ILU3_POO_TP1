@@ -20,7 +20,8 @@ public class TestSabot {
             System.out.println("je pioche " + c);
         }
 		
-		//Test avec ietrateur et remove
+		//Test avec iterateur et remove
+		cartes = jeu.donnerCartes();
 		sabot = new Sabot(cartes);
 		Iterator<Carte> it = sabot.iterator();
         while (it.hasNext()) {
@@ -28,10 +29,5 @@ public class TestSabot {
             System.out.println("je pioche " + c);
             it.remove();
         }
-        
-        
-		
-		
 	}
-	
 }
