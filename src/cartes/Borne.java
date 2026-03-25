@@ -25,7 +25,5 @@ public class Borne extends Carte {
 
 		Borne autre = (Borne) obj;
 		return km == autre.km;
-
 	}
-
 }

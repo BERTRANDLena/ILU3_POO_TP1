@@ -10,7 +10,7 @@ public abstract class Carte {
 			return false;
 
 		Carte autre = (Carte) obj;
-		return nom.equals(autre.nom);
+		return toString().equals(autre.toString());
 
 	}
 }
