@@ -1,6 +1,8 @@
 package jeu;
 
 import cartes.Carte;
+
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -8,6 +10,7 @@ public class Sabot implements Iterable<Carte> {
 
 	private int nbCartes;
 	private Carte[] cartes;
+	private int nombreOperations = 0;
 
 	public Sabot(Carte[] cartes) {
 		this.cartes = cartes;
@@ -24,6 +27,7 @@ public class Sabot implements Iterable<Carte> {
 		}
 		cartes[nbCartes] = carte;
 		nbCartes++;
+		nombreOperations++;
 	}
 
 	public Carte piocher() {
@@ -31,9 +35,9 @@ public class Sabot implements Iterable<Carte> {
 			throw new NoSuchElementException("Sabot vide");
 		}
 		Iterator<Carte> it = iterator();
-		Carte c = it.next();
+		Carte carte = it.next();
 		it.remove();
-		return c;
+		return carte;
 
 	}
 
@@ -44,6 +48,7 @@ public class Sabot implements Iterable<Carte> {
 
 			private int indiceIterateur = 0;
 			private boolean nextEffectue = false;
+			private int nombreOperationsReference = nombreOperations;
 
 			@Override
 			public boolean hasNext() {
@@ -55,6 +60,7 @@ public class Sabot implements Iterable<Carte> {
 				if (!hasNext()) {
 					throw new NoSuchElementException();
 				}
+				verificationConcurrence();
 				nextEffectue = true;
 				return cartes[indiceIterateur++];
 			}
@@ -73,7 +79,14 @@ public class Sabot implements Iterable<Carte> {
 				nbCartes--;
 				indiceIterateur--;
 				nextEffectue = false;
+				nombreOperations++;
+				nombreOperationsReference++;
 			}
+			
+			private void verificationConcurrence(){
+				if (nombreOperations != nombreOperationsReference)
+				throw new ConcurrentModificationException();
+				}
 		};
 	}
 }
