@@ -6,10 +6,12 @@ public class Joueur {
 	
 	private String nom;
 	private ZoneDeJeu zoneDeJeu;
+	private MainJoueur main;
 	
-	public Joueur(String nom, ZoneDeJeu zoneDeJeu) {
+	public Joueur(String nom, ZoneDeJeu zoneDeJeu, MainJoueur main) {
 		this.nom = nom;
 		this.zoneDeJeu = zoneDeJeu;
+		this.main = main;
 	}
 	
 	public String getNom() {
@@ -17,6 +19,9 @@ public class Joueur {
 	}
 	public ZoneDeJeu getZoneDeJeu() {
 		return zoneDeJeu;
+	}
+	public MainJoueur getMainJoueur() {
+		return main;
 	}
 	
 	@Override
@@ -35,6 +40,10 @@ public class Joueur {
 		return nom;
 	}
 	
+	public void donner(Sabot sabot, MainJoueur main) {
+		Carte carte = sabot.piocher();
+		
+		
+	}
 	
-
 }
