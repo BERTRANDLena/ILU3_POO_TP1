@@ -6,15 +6,17 @@ import java.util.List;
 import cartes.Bataille;
 import cartes.Borne;
 import cartes.Carte;
+import cartes.DebutLimite;
 import cartes.FinLimite;
 import cartes.Limite;
+import cartes.Parade;
+import cartes.Type;
 
 public class ZoneDeJeu {
 
 	private List<Limite> pileLimite = new LinkedList<Limite>();
 	private List<Bataille> pileBataille = new LinkedList<Bataille>();
 	private List<Borne> pileBornes = new LinkedList<Borne>();
-
 
 	public int donnerLimitationVitesse() {
 		if (pileLimite.isEmpty() || pileLimite.get(pileLimite.size() - 1) instanceof FinLimite) {
@@ -30,23 +32,43 @@ public class ZoneDeJeu {
 		}
 		return total;
 	}
-	
+
 	public void deposer(Carte carte) {
 
-	    if (carte instanceof Borne) {
-	        pileBornes.add((Borne) carte);
-	    }
-	    else if (carte instanceof Limite || carte instanceof FinLimite) {
-	        pileLimite.add((Limite) carte);
-	    }
-	    else if (carte instanceof Bataille) {
-	        pileBataille.add((Bataille) carte);
-	    }
+		if (carte instanceof Borne) {
+			pileBornes.add((Borne) carte);
+		} else if (carte instanceof Limite || carte instanceof FinLimite) {
+			pileLimite.add((Limite) carte);
+		} else if (carte instanceof Bataille) {
+			pileBataille.add((Bataille) carte);
+		}
 	}
-	
+
 	public boolean peutAvancer() {
 		Bataille sommet = pileBataille.get(0);
 		return (!pileBataille.isEmpty() && sommet.equals(Cartes.FEU_VERT));
-	
+
 	}
+
+	public boolean estDepotFeuVertAutorise() {
+		Bataille sommet = pileBataille.get(0);
+		return (!pileBataille.isEmpty() || sommet.equals(Cartes.FEU_ROUGE)
+				|| sommet instanceof Parade parade && parade.getType() != Type.FEU);
+	}
+
+	public boolean estDepotBorneAutorise(Borne borne) {
+		return peutAvancer() && borne.getKm() <= donnerLimitationVitesse()
+				&& donnerKmParcourus() + borne.getKm() <= 1000;
+	}
+	
+	public boolean estDepotLimiteAutorise(Limite limite) {
+		if (pileLimite instanceof DebutLimite) {
+			return pileLimite.isEmpty() || pileLimite.get(pileLimite.size()-1) instanceof FinLimite;
+		}
+		if (pileLimite instanceof FinLimite) {
+			return !pileLimite.isEmpty() && pileLimite.get(pileLimite.size()-1) instanceof DebutLimite;
+		}
+		return false;
+	}
+
 }
